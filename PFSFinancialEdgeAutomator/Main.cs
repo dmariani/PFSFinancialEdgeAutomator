@@ -116,6 +116,22 @@ namespace PFSFinancialEdgeAutomator
             }
         }
 
+        private void chooseMappingDir_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogExcel.ShowDialog() == DialogResult.OK)
+            {
+                textBoxMappingDir.Text = openFileDialogExcel.FileName;
+            }
+        }
+
+        private void chooseExpenseFileDir_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogCSV.ShowDialog() == DialogResult.OK)
+            {
+                textBoxExpenseFileDir.Text = openFileDialogCSV.FileName;
+            }
+        }
+
         private long ProcessExpenseFile(String inputMappingFileName, String inputExpenseFileName, String outputFileName)
         {
             long rowsExported = 0;
@@ -183,11 +199,6 @@ namespace PFSFinancialEdgeAutomator
             {
                 throw ex;
             }
-        }
-
-        private void directory_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
