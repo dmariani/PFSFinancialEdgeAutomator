@@ -155,6 +155,7 @@ namespace PFSFinancialEdgeAutomator
                 statusStrip.Refresh();
 
                 // Tag = Location/Program
+                // X(FUND)-XX(DIVISION)-XXX(PROGRAM)-XXXXX(PROJECT ID)
                 Dictionary<String, String> dictionaryTagsMappings = ReadMappings(inputTagsMappingFileName);
 
                 // Open the Expense File
@@ -163,12 +164,6 @@ namespace PFSFinancialEdgeAutomator
 
                 DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName, "\t");
                 Console.WriteLine("Rows count:" + ExpenseData.Rows.Count);
-
-//                if (dictionaryCatMappings.ContainsKey("School"))
-//                {
-//                    String value = dictionaryCatMappings["School"];
-//                    body.Append(value);
-//                }
 
                 toolStripStatusLabel.Text = "Writing data to files...";
                 statusStrip.Refresh();
@@ -205,28 +200,119 @@ namespace PFSFinancialEdgeAutomator
                 {                    
                     for (int i = 0; i < fields.GetLength(0); i++)
                     {
+                        // Parse Amount
+                        if (!row.Table.Columns.Contains("Amount"))
+                        {
+                            throw new Exception("Can't find the required field 'Amount' in the Expensify Export File named: " + inputExpenseFileName);
+                        }
+
+                        String Amt = row["Amount"].ToString();
+                        double dblAmt = Convert.ToDouble(Amt);
+
+                        // Parse Category
+                        //
+                        if (!row.Table.Columns.Contains("Category"))
+                        {
+                            throw new Exception("Can't find the required field 'Category' in the Expensify Export File named: " + inputExpenseFileName);
+                        }
+
+                        String catExpensify = row["Category"].ToString().ToUpper().Trim();
+
+                        // Now lookup Expensify Cat in our Map
+                        if (!dictionaryCatMappings.ContainsKey(catExpensify))
+                        {
+                            throw new Exception("Can't find GL Code mapping for Category: " + catExpensify + " in file: " + inputExpenseFileName);
+                        }
+
+                        String catGLCode = dictionaryCatMappings[catExpensify];
+
+                        // Parse Tag
+                        //
+                        if (!row.Table.Columns.Contains("Tag"))
+                        {
+                            throw new Exception("Can't find the required field 'Tag' in the Expensify Export File named: " + inputExpenseFileName);
+                        }
+
+                        String tagExpensify = row["Tag"].ToString().ToUpper().Trim();
+
+                        // Now lookup Expensify Tab in our Map
+                        if (!dictionaryTagsMappings.ContainsKey(tagExpensify))
+                        {
+                            throw new Exception("Can't find GL Code mapping for Tag: " + tagExpensify + " in file: " + inputExpenseFileName);
+                        }
+
+                        String tagsGLCode = dictionaryTagsMappings[tagExpensify];
+
+                        // Now split out the GL Code into its parts
+                        // Tags = X(FUND)-XX(DIVISION)-XXX(PROGRAM)-XXXXX(PROJECT ID)
+                        string[] tagArray = tagsGLCode.Split('-');
+                        if (tagArray.Length != 4)
+                        {
+                            throw new Exception("The GL Code for the Tag: " + tagExpensify + " doesn't have the required 4 parts of X(FUND)-XX(DIVISION)-XXX(PROGRAM)-XXXXX(PROJECT ID) in file: " + inputExpenseFileName);
+                        }
+
+                        String Fund = tagArray[0];
+                        String Division = tagArray[1];
+                        String Program = tagArray[2];
+                        String Project = tagArray[3];
+
+                        // Add delimiter
                         if (i > 0)
                             body.Append(",");
 
                         // We need to calculate fields that don't match directly
-                        if (fields[i,1].Length == 0)
+                        string fieldOut = fields[i,0].ToString();
+                        string fieldIn = fields[i,1].ToString();
+                        if (fieldIn.Length == 0)
                         {
-
+                            if (fieldOut == "AccountNumber")
+                            {
+                                // Tags PLUS Categories MINUS Project ID
+                                body.Append(Fund + "-" + Division + "-" + Program + "-" + catGLCode);
+                            }
+                            else if (fieldOut == "Type")
+                            {
+                                // If negative, absolute value and make it a "C", else "D"
+                                if (dblAmt < 0)
+                                    body.Append("C");
+                                else
+                                    body.Append("D");
+                            }
+                            else if (fieldOut == "Journal")
+                            {
+                                body.Append("Journal Entry");
+                            }
+                            else if (fieldOut == "ProjectID")
+                            {
+                                // If 00000, blank out
+                                if (Project == "00000")
+                                    body.Append("");
+                                else
+                                    body.Append(Project);
+                            }
+                            else if (fieldOut == "EncumbranceStatus")
+                            {
+                                body.Append("R");
+                            }
                         }
                         else
                         {
-                            string field = fields[i,1].ToString();
-                            if (!row.Table.Columns.Contains(field))
+                            if (!row.Table.Columns.Contains(fieldIn))
                             {
-                                throw new Exception("The required field: '" + field + "' is missing from the expense file: " + inputExpenseFileName);
+                                throw new Exception("The required field: '" + fieldIn + "' is missing from the expense file: " + inputExpenseFileName);
                             }
                             
-                            string value = row[field].ToString();
+                            string value = row[fieldIn].ToString();
                             
-                            if (field == "Timestamp")
+                            if (fieldIn == "Timestamp")
                             {
                                 DateTime result = DateTime.ParseExact(value, "M/d/yy H:mm", System.Globalization.CultureInfo.CurrentCulture);
                                 value = result.ToString("MM/dd/yy");
+                            }
+                            else if (fieldIn == "Amount")
+                            {
+                                // Make Amount the absolute value
+                                value = Math.Abs(dblAmt).ToString();
                             }
                             
                             body.Append(value);
@@ -276,7 +362,7 @@ namespace PFSFinancialEdgeAutomator
                     throw new Exception("The required field: '" + "glcode" + "' is missing from the mappings file: " + inputTagsMappingFileName);
                 }
 
-                dictionaryMappings.Add(row["name"].ToString(), row["glcode"].ToString());
+                dictionaryMappings.Add(row["name"].ToString().ToUpper().Trim(), row["glcode"].ToString());
             }  
 
             return dictionaryMappings;
