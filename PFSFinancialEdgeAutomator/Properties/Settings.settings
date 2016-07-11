@@ -8,7 +8,10 @@
     <Setting Name="inputExpenseDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="inputMappingDir" Type="System.String" Scope="User">
+    <Setting Name="inputCatMappingDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="inputTagsMappingDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

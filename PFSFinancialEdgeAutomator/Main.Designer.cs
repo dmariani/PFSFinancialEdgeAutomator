@@ -36,33 +36,37 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.labelDirectoryMappingDir = new System.Windows.Forms.Label();
-            this.textBoxMappingDir = new System.Windows.Forms.TextBox();
-            this.chooseMappingDir = new System.Windows.Forms.Button();
+            this.labelDirectoryCatMappingDir = new System.Windows.Forms.Label();
+            this.textBoxCatMappingDir = new System.Windows.Forms.TextBox();
+            this.chooseCatMappingDir = new System.Windows.Forms.Button();
             this.labelExpenseFileDir = new System.Windows.Forms.Label();
             this.textBoxExpenseFileDir = new System.Windows.Forms.TextBox();
             this.chooseExpenseFileDir = new System.Windows.Forms.Button();
-            this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialogCSV = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogTXT = new System.Windows.Forms.OpenFileDialog();
+            this.labelDirectoryTagsMappingDir = new System.Windows.Forms.Label();
+            this.textBoxTagsMappingDir = new System.Windows.Forms.TextBox();
+            this.chooseTagsMappingDir = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // go
             // 
-            this.go.Location = new System.Drawing.Point(176, 154);
+            this.go.Location = new System.Drawing.Point(196, 203);
             this.go.Name = "go";
             this.go.Size = new System.Drawing.Size(75, 23);
-            this.go.TabIndex = 10;
+            this.go.TabIndex = 13;
             this.go.Text = "&Go";
             this.go.UseVisualStyleBackColor = true;
             this.go.Click += new System.EventHandler(this.go_Click);
             // 
             // close
             // 
-            this.close.Location = new System.Drawing.Point(307, 154);
+            this.close.Location = new System.Drawing.Point(327, 203);
             this.close.Name = "close";
             this.close.Size = new System.Drawing.Size(75, 23);
-            this.close.TabIndex = 11;
+            this.close.TabIndex = 14;
             this.close.Text = "&Close";
             this.close.UseVisualStyleBackColor = true;
             this.close.Click += new System.EventHandler(this.close_Click);
@@ -70,26 +74,26 @@
             // labelDirectoryOutputDir
             // 
             this.labelDirectoryOutputDir.AutoSize = true;
-            this.labelDirectoryOutputDir.Location = new System.Drawing.Point(23, 114);
+            this.labelDirectoryOutputDir.Location = new System.Drawing.Point(23, 166);
             this.labelDirectoryOutputDir.Name = "labelDirectoryOutputDir";
             this.labelDirectoryOutputDir.Size = new System.Drawing.Size(132, 13);
-            this.labelDirectoryOutputDir.TabIndex = 7;
+            this.labelDirectoryOutputDir.TabIndex = 10;
             this.labelDirectoryOutputDir.Text = "FE Output CSV File Name:";
             // 
             // textBoxDir
             // 
-            this.textBoxDir.Location = new System.Drawing.Point(192, 111);
+            this.textBoxDir.Location = new System.Drawing.Point(219, 163);
             this.textBoxDir.Name = "textBoxDir";
             this.textBoxDir.Size = new System.Drawing.Size(292, 20);
-            this.textBoxDir.TabIndex = 8;
+            this.textBoxDir.TabIndex = 11;
             this.textBoxDir.Text = "c:\\";
             // 
             // chooseOutputDir
             // 
-            this.chooseOutputDir.Location = new System.Drawing.Point(490, 109);
+            this.chooseOutputDir.Location = new System.Drawing.Point(517, 161);
             this.chooseOutputDir.Name = "chooseOutputDir";
             this.chooseOutputDir.Size = new System.Drawing.Size(40, 23);
-            this.chooseOutputDir.TabIndex = 9;
+            this.chooseOutputDir.TabIndex = 12;
             this.chooseOutputDir.Text = "...";
             this.chooseOutputDir.UseVisualStyleBackColor = true;
             this.chooseOutputDir.Click += new System.EventHandler(this.chooseDir_Click);
@@ -102,9 +106,9 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 192);
+            this.statusStrip.Location = new System.Drawing.Point(0, 237);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(558, 22);
+            this.statusStrip.Size = new System.Drawing.Size(599, 22);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 11;
             this.statusStrip.Text = "Status";
@@ -116,91 +120,131 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // labelDirectoryMappingDir
+            // labelDirectoryCatMappingDir
             // 
-            this.labelDirectoryMappingDir.AutoSize = true;
-            this.labelDirectoryMappingDir.Location = new System.Drawing.Point(23, 33);
-            this.labelDirectoryMappingDir.Name = "labelDirectoryMappingDir";
-            this.labelDirectoryMappingDir.Size = new System.Drawing.Size(165, 13);
-            this.labelDirectoryMappingDir.TabIndex = 1;
-            this.labelDirectoryMappingDir.Text = "Mapping Input EXCEL File Name:";
+            this.labelDirectoryCatMappingDir.AutoSize = true;
+            this.labelDirectoryCatMappingDir.Location = new System.Drawing.Point(23, 33);
+            this.labelDirectoryCatMappingDir.Name = "labelDirectoryCatMappingDir";
+            this.labelDirectoryCatMappingDir.Size = new System.Drawing.Size(178, 13);
+            this.labelDirectoryCatMappingDir.TabIndex = 1;
+            this.labelDirectoryCatMappingDir.Text = "Categories Mapping CSV File Name:";
             // 
-            // textBoxMappingDir
+            // textBoxCatMappingDir
             // 
-            this.textBoxMappingDir.Location = new System.Drawing.Point(192, 31);
-            this.textBoxMappingDir.Name = "textBoxMappingDir";
-            this.textBoxMappingDir.Size = new System.Drawing.Size(292, 20);
-            this.textBoxMappingDir.TabIndex = 2;
-            this.textBoxMappingDir.Text = "c:\\";
+            this.textBoxCatMappingDir.Location = new System.Drawing.Point(219, 31);
+            this.textBoxCatMappingDir.Name = "textBoxCatMappingDir";
+            this.textBoxCatMappingDir.Size = new System.Drawing.Size(292, 20);
+            this.textBoxCatMappingDir.TabIndex = 2;
+            this.textBoxCatMappingDir.Text = "c:\\";
             // 
-            // chooseMappingDir
+            // chooseCatMappingDir
             // 
-            this.chooseMappingDir.Location = new System.Drawing.Point(490, 30);
-            this.chooseMappingDir.Name = "chooseMappingDir";
-            this.chooseMappingDir.Size = new System.Drawing.Size(40, 23);
-            this.chooseMappingDir.TabIndex = 3;
-            this.chooseMappingDir.Text = "...";
-            this.chooseMappingDir.UseVisualStyleBackColor = true;
-            this.chooseMappingDir.Click += new System.EventHandler(this.chooseMappingDir_Click);
+            this.chooseCatMappingDir.Location = new System.Drawing.Point(517, 30);
+            this.chooseCatMappingDir.Name = "chooseCatMappingDir";
+            this.chooseCatMappingDir.Size = new System.Drawing.Size(40, 23);
+            this.chooseCatMappingDir.TabIndex = 3;
+            this.chooseCatMappingDir.Text = "...";
+            this.chooseCatMappingDir.UseVisualStyleBackColor = true;
+            this.chooseCatMappingDir.Click += new System.EventHandler(this.chooseMappingDir_Click);
             // 
             // labelExpenseFileDir
             // 
             this.labelExpenseFileDir.AutoSize = true;
-            this.labelExpenseFileDir.Location = new System.Drawing.Point(23, 71);
+            this.labelExpenseFileDir.Location = new System.Drawing.Point(23, 113);
             this.labelExpenseFileDir.Name = "labelExpenseFileDir";
-            this.labelExpenseFileDir.Size = new System.Drawing.Size(152, 13);
-            this.labelExpenseFileDir.TabIndex = 4;
-            this.labelExpenseFileDir.Text = "Expense Input CSV File Name:";
+            this.labelExpenseFileDir.Size = new System.Drawing.Size(167, 13);
+            this.labelExpenseFileDir.TabIndex = 7;
+            this.labelExpenseFileDir.Text = "Expsensify Export TXT File Name:";
             // 
             // textBoxExpenseFileDir
             // 
-            this.textBoxExpenseFileDir.Location = new System.Drawing.Point(192, 70);
+            this.textBoxExpenseFileDir.Location = new System.Drawing.Point(219, 112);
             this.textBoxExpenseFileDir.Name = "textBoxExpenseFileDir";
             this.textBoxExpenseFileDir.Size = new System.Drawing.Size(292, 20);
-            this.textBoxExpenseFileDir.TabIndex = 5;
+            this.textBoxExpenseFileDir.TabIndex = 8;
             this.textBoxExpenseFileDir.Text = "c:\\";
             // 
             // chooseExpenseFileDir
             // 
-            this.chooseExpenseFileDir.Location = new System.Drawing.Point(490, 68);
+            this.chooseExpenseFileDir.Location = new System.Drawing.Point(517, 110);
             this.chooseExpenseFileDir.Name = "chooseExpenseFileDir";
             this.chooseExpenseFileDir.Size = new System.Drawing.Size(40, 23);
-            this.chooseExpenseFileDir.TabIndex = 6;
+            this.chooseExpenseFileDir.TabIndex = 9;
             this.chooseExpenseFileDir.Text = "...";
             this.chooseExpenseFileDir.UseVisualStyleBackColor = true;
             this.chooseExpenseFileDir.Click += new System.EventHandler(this.chooseExpenseFileDir_Click);
             // 
-            // openFileDialogExcel
-            // 
-            this.openFileDialogExcel.DefaultExt = "xlsx";
-            this.openFileDialogExcel.Filter = "Excel Files (.xlsx)|*.xlsx|All Files (*.*)|*.*\"";
-            this.openFileDialogExcel.ReadOnlyChecked = true;
-            this.openFileDialogExcel.Title = "Choose the Mapping Excel File";
-            // 
             // openFileDialogCSV
             // 
-            this.openFileDialogCSV.DefaultExt = "csv";
-            this.openFileDialogCSV.Filter = "Text Files (.txt)|*.txt|CSV Files (.csv)|*.csv|All Files (*.*)|*.*\"";
+            this.openFileDialogCSV.DefaultExt = "xlsx";
+            this.openFileDialogCSV.Filter = "CSV Files (.csv)|*.csv|All Files (*.*)|*.*\"";
             this.openFileDialogCSV.ReadOnlyChecked = true;
-            this.openFileDialogCSV.Title = "Choose the Expense CSV File";
+            this.openFileDialogCSV.Title = "Choose the Mapping CSV File";
+            // 
+            // openFileDialogTXT
+            // 
+            this.openFileDialogTXT.DefaultExt = "csv";
+            this.openFileDialogTXT.Filter = "Text Files (.txt)|*.txt|CSV Files (.csv)|*.csv|All Files (*.*)|*.*\"";
+            this.openFileDialogTXT.ReadOnlyChecked = true;
+            this.openFileDialogTXT.Title = "Choose the Expense CSV File";
+            // 
+            // labelDirectoryTagsMappingDir
+            // 
+            this.labelDirectoryTagsMappingDir.AutoSize = true;
+            this.labelDirectoryTagsMappingDir.Location = new System.Drawing.Point(23, 73);
+            this.labelDirectoryTagsMappingDir.Name = "labelDirectoryTagsMappingDir";
+            this.labelDirectoryTagsMappingDir.Size = new System.Drawing.Size(152, 13);
+            this.labelDirectoryTagsMappingDir.TabIndex = 4;
+            this.labelDirectoryTagsMappingDir.Text = "Tags Mapping CSV File Name:";
+            // 
+            // textBoxTagsMappingDir
+            // 
+            this.textBoxTagsMappingDir.Location = new System.Drawing.Point(219, 70);
+            this.textBoxTagsMappingDir.Name = "textBoxTagsMappingDir";
+            this.textBoxTagsMappingDir.Size = new System.Drawing.Size(292, 20);
+            this.textBoxTagsMappingDir.TabIndex = 5;
+            this.textBoxTagsMappingDir.Text = "c:\\";
+            // 
+            // chooseTagsMappingDir
+            // 
+            this.chooseTagsMappingDir.Location = new System.Drawing.Point(517, 69);
+            this.chooseTagsMappingDir.Name = "chooseTagsMappingDir";
+            this.chooseTagsMappingDir.Size = new System.Drawing.Size(40, 23);
+            this.chooseTagsMappingDir.TabIndex = 6;
+            this.chooseTagsMappingDir.Text = "...";
+            this.chooseTagsMappingDir.UseVisualStyleBackColor = true;
+            this.chooseTagsMappingDir.Click += new System.EventHandler(this.chooseTagsMappingDir_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(13, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(563, 135);
+            this.groupBox1.TabIndex = 15;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Input FIles";
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(558, 214);
+            this.ClientSize = new System.Drawing.Size(599, 259);
+            this.Controls.Add(this.chooseTagsMappingDir);
+            this.Controls.Add(this.textBoxTagsMappingDir);
+            this.Controls.Add(this.labelDirectoryTagsMappingDir);
             this.Controls.Add(this.chooseExpenseFileDir);
             this.Controls.Add(this.textBoxExpenseFileDir);
             this.Controls.Add(this.labelExpenseFileDir);
-            this.Controls.Add(this.chooseMappingDir);
-            this.Controls.Add(this.textBoxMappingDir);
-            this.Controls.Add(this.labelDirectoryMappingDir);
+            this.Controls.Add(this.chooseCatMappingDir);
+            this.Controls.Add(this.textBoxCatMappingDir);
+            this.Controls.Add(this.labelDirectoryCatMappingDir);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.chooseOutputDir);
             this.Controls.Add(this.textBoxDir);
             this.Controls.Add(this.labelDirectoryOutputDir);
             this.Controls.Add(this.close);
             this.Controls.Add(this.go);
+            this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Main";
@@ -224,14 +268,18 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.Label labelDirectoryMappingDir;
-        private System.Windows.Forms.TextBox textBoxMappingDir;
-        private System.Windows.Forms.Button chooseMappingDir;
+        private System.Windows.Forms.Label labelDirectoryCatMappingDir;
+        private System.Windows.Forms.TextBox textBoxCatMappingDir;
+        private System.Windows.Forms.Button chooseCatMappingDir;
         private System.Windows.Forms.Label labelExpenseFileDir;
         private System.Windows.Forms.TextBox textBoxExpenseFileDir;
         private System.Windows.Forms.Button chooseExpenseFileDir;
-        private System.Windows.Forms.OpenFileDialog openFileDialogExcel;
         private System.Windows.Forms.OpenFileDialog openFileDialogCSV;
+        private System.Windows.Forms.OpenFileDialog openFileDialogTXT;
+        private System.Windows.Forms.Label labelDirectoryTagsMappingDir;
+        private System.Windows.Forms.TextBox textBoxTagsMappingDir;
+        private System.Windows.Forms.Button chooseTagsMappingDir;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

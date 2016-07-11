@@ -37,14 +37,16 @@ namespace PFSFinancialEdgeAutomator
         {
             Properties.Settings.Default.Reload(); // Loads settings in application configuration file
 
-            textBoxMappingDir.Text = Properties.Settings.Default["inputMappingDir"].ToString();
+            textBoxCatMappingDir.Text = Properties.Settings.Default["inputCatMappingDir"].ToString();
+            textBoxTagsMappingDir.Text = Properties.Settings.Default["inputTagsMappingDir"].ToString();
             textBoxExpenseFileDir.Text = Properties.Settings.Default["inputExpenseDir"].ToString();
             textBoxDir.Text = Properties.Settings.Default["outputDir"].ToString();
         }
 
         private void SaveOptions()
         {
-            Properties.Settings.Default["inputMappingDir"] = textBoxMappingDir.Text;
+            Properties.Settings.Default["inputCatMappingDir"] = textBoxCatMappingDir.Text;
+            Properties.Settings.Default["inputTagsMappingDir"] = textBoxTagsMappingDir.Text;
             Properties.Settings.Default["inputExpenseDir"] = textBoxExpenseFileDir.Text;
             Properties.Settings.Default["outputDir"] = textBoxDir.Text;
             Properties.Settings.Default.Save(); // Saves settings in application configuration file
@@ -55,7 +57,8 @@ namespace PFSFinancialEdgeAutomator
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to begin the expense processing?", "Confirm Export", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                String inputMappingFileName = textBoxMappingDir.Text;
+                String inputCatMappingFileName = textBoxCatMappingDir.Text;
+                String inputTagsMappingFileName = textBoxTagsMappingDir.Text;
                 String inputExpenseFileName = textBoxExpenseFileDir.Text;
                 String outputFileName = textBoxDir.Text;
 
@@ -63,11 +66,11 @@ namespace PFSFinancialEdgeAutomator
                 {
                     Cursor.Current = Cursors.WaitCursor;
 
-                    long rowsExported = ProcessExpenseFile(inputMappingFileName, inputExpenseFileName, outputFileName);
+                    long rowsExported = ProcessExpenseFile(inputCatMappingFileName, inputTagsMappingFileName, inputExpenseFileName, outputFileName);
 
                     toolStripStatusLabel.Text = "Export succeeded.";
                     statusStrip.Refresh();
-
+                    SaveOptions();
                     bExportWasRunSuccessfully = true;
 
                     MessageBox.Show("Success!  Exported " + rowsExported.ToString() + " and wrote files to: " + textBoxDir.Text, "Export Results", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -105,21 +108,33 @@ namespace PFSFinancialEdgeAutomator
 
         private void chooseMappingDir_Click(object sender, EventArgs e)
         {
-            if (openFileDialogExcel.ShowDialog() == DialogResult.OK)
+            openFileDialogCSV.Title = "Choose the Categories Mapping CSV File";
+
+            if (openFileDialogCSV.ShowDialog() == DialogResult.OK)
             {
-                textBoxMappingDir.Text = openFileDialogExcel.FileName;
+                textBoxCatMappingDir.Text = openFileDialogCSV.FileName;
+            }
+        }
+
+        private void chooseTagsMappingDir_Click(object sender, EventArgs e)
+        {
+            openFileDialogCSV.Title = "Choose the Tags Mapping CSV File";
+
+            if (openFileDialogCSV.ShowDialog() == DialogResult.OK)
+            {
+                textBoxTagsMappingDir.Text = openFileDialogCSV.FileName;
             }
         }
 
         private void chooseExpenseFileDir_Click(object sender, EventArgs e)
         {
-            if (openFileDialogCSV.ShowDialog() == DialogResult.OK)
+            if (openFileDialogTXT.ShowDialog() == DialogResult.OK)
             {
-                textBoxExpenseFileDir.Text = openFileDialogCSV.FileName;
+                textBoxExpenseFileDir.Text = openFileDialogTXT.FileName;
             }
         }
 
-        private long ProcessExpenseFile(String inputMappingFileName, String inputExpenseFileName, String outputFileName)
+        private long ProcessExpenseFile(String inputCatMappingFileName, String inputTagsMappingFileName, String inputExpenseFileName, String outputFileName)
         {
             long rowsExported = 0;
 
@@ -128,31 +143,32 @@ namespace PFSFinancialEdgeAutomator
                 // Remove the output file
                 System.IO.File.Delete(outputFileName);
 
-                // Load the Mapping File
-                toolStripStatusLabel.Text = "Reading: " + inputMappingFileName + " ...";
+                // Load the Category Mapping File
+                toolStripStatusLabel.Text = "Reading: " + inputCatMappingFileName + " ...";
                 statusStrip.Refresh();
+
+                // Category = Expense Type
+                Dictionary<String, String> dictionaryCatMappings = ReadMappings(inputCatMappingFileName);
+
+                // Load the Tags Mapping File
+                toolStripStatusLabel.Text = "Reading: " + inputTagsMappingFileName + " ...";
+                statusStrip.Refresh();
+
+                // Tag = Location/Program
+                Dictionary<String, String> dictionaryTagsMappings = ReadMappings(inputTagsMappingFileName);
 
                 // Open the Expense File
                 toolStripStatusLabel.Text = "Reading: " + inputExpenseFileName + " ...";
                 statusStrip.Refresh();
 
-                DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName);
+                DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName, "\t");
                 Console.WriteLine("Rows count:" + ExpenseData.Rows.Count);
-
-                // Category = Expense Type
-                Dictionary<String, String> dictionaryCatMappings = new Dictionary<String, String>();
-                dictionaryCatMappings.Add("ExpensifyCategory", "GLCode");
-
-                // Tag = Location/Program
-                Dictionary<String, String> dictionaryTagMappings = new Dictionary<String, String>();
-                dictionaryTagMappings.Add("ExpensifyTag", "GLCode");
 
 //                if (dictionaryCatMappings.ContainsKey("School"))
 //                {
 //                    String value = dictionaryCatMappings["School"];
 //                    body.Append(value);
 //                }
-
 
                 toolStripStatusLabel.Text = "Writing data to files...";
                 statusStrip.Refresh();
@@ -241,7 +257,32 @@ namespace PFSFinancialEdgeAutomator
             }
         }
 
-        private static DataTable GetDataTabletFromCSVFile(string csv_file_path)
+        private static Dictionary<String, String> ReadMappings(String inputTagsMappingFileName)
+        {
+            Dictionary<String, String> dictionaryMappings = new Dictionary<String, String>();
+
+            DataTable MappingData = GetDataTabletFromCSVFile(inputTagsMappingFileName, ",");
+            Console.WriteLine("Rows count for " + inputTagsMappingFileName + ": " + MappingData.Rows.Count);
+
+            foreach (DataRow row in MappingData.Rows)
+            {
+                if (!row.Table.Columns.Contains("name"))
+                {
+                    throw new Exception("The required field: '" + "name" + "' is missing from the mappings file: " + inputTagsMappingFileName);
+                }
+
+                if (!row.Table.Columns.Contains("glcode"))
+                {
+                    throw new Exception("The required field: '" + "glcode" + "' is missing from the mappings file: " + inputTagsMappingFileName);
+                }
+
+                dictionaryMappings.Add(row["name"].ToString(), row["glcode"].ToString());
+            }  
+
+            return dictionaryMappings;
+        }
+
+        private static DataTable GetDataTabletFromCSVFile(string csv_file_path, string delimiter)
         {
             DataTable csvData = new DataTable();
 
@@ -250,7 +291,7 @@ namespace PFSFinancialEdgeAutomator
 
                 using (TextFieldParser csvReader = new TextFieldParser(csv_file_path))
                 {
-                    csvReader.SetDelimiters(new string[] { "\t" });
+                    csvReader.SetDelimiters(new string[] { delimiter });
                     csvReader.HasFieldsEnclosedInQuotes = true;
                     string[] colFields = csvReader.ReadFields();
                     foreach (string column in colFields)

@@ -50,12 +50,24 @@ namespace PFSFinancialEdgeAutomator.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string inputMappingDir {
+        public string inputCatMappingDir {
             get {
-                return ((string)(this["inputMappingDir"]));
+                return ((string)(this["inputCatMappingDir"]));
             }
             set {
-                this["inputMappingDir"] = value;
+                this["inputCatMappingDir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string inputTagsMappingDir {
+            get {
+                return ((string)(this["inputTagsMappingDir"]));
+            }
+            set {
+                this["inputTagsMappingDir"] = value;
             }
         }
     }
