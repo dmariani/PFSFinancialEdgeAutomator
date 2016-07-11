@@ -180,7 +180,7 @@
             // openFileDialogCSV
             // 
             this.openFileDialogCSV.DefaultExt = "csv";
-            this.openFileDialogCSV.Filter = "CSV Files (.csv)|*.csv|All Files (*.*)|*.*\"";
+            this.openFileDialogCSV.Filter = "Text Files (.txt)|*.txt|CSV Files (.csv)|*.csv|All Files (*.*)|*.*\"";
             this.openFileDialogCSV.ReadOnlyChecked = true;
             this.openFileDialogCSV.Title = "Choose the Expense CSV File";
             // 

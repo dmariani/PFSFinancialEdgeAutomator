@@ -14,6 +14,8 @@ using System.Net;
 using System.IO;
 using System.Xml;
 using System.Xml.XPath;
+using Microsoft.VisualBasic.FileIO;
+using System.Globalization;
 
 namespace PFSFinancialEdgeAutomator
 {
@@ -60,21 +62,6 @@ namespace PFSFinancialEdgeAutomator
                 try
                 {
                     Cursor.Current = Cursors.WaitCursor;
-
-                    // Remove the output file
-                    System.IO.File.Delete(outputFileName);
-
-                    // Ceeate the Output File
-                    toolStripStatusLabel.Text = "Creating: " + outputFileName + " ...";
-                    statusStrip.Refresh();
-
-                    // Load the Mapping File
-                    toolStripStatusLabel.Text = "Reading: " + inputMappingFileName + " ...";
-                    statusStrip.Refresh();
-
-                    // Open the Expense File
-                    toolStripStatusLabel.Text = "Opening: " + inputExpenseFileName + " ...";
-                    statusStrip.Refresh();
 
                     long rowsExported = ProcessExpenseFile(inputMappingFileName, inputExpenseFileName, outputFileName);
 
@@ -138,6 +125,20 @@ namespace PFSFinancialEdgeAutomator
 
             try
             {
+                // Remove the output file
+                System.IO.File.Delete(outputFileName);
+
+                // Load the Mapping File
+                toolStripStatusLabel.Text = "Reading: " + inputMappingFileName + " ...";
+                statusStrip.Refresh();
+
+                // Open the Expense File
+                toolStripStatusLabel.Text = "Reading: " + inputExpenseFileName + " ...";
+                statusStrip.Refresh();
+
+                DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName);
+                Console.WriteLine("Rows count:" + ExpenseData.Rows.Count);
+
                 // Category = Expense Type
                 Dictionary<String, String> dictionaryCatMappings = new Dictionary<String, String>();
                 dictionaryCatMappings.Add("ExpensifyCategory", "GLCode");
@@ -184,7 +185,46 @@ namespace PFSFinancialEdgeAutomator
 
                 // Loop through expense file
                 //
+                foreach (DataRow row in ExpenseData.Rows)
+                {                    
+                    for (int i = 0; i < fields.GetLength(0); i++)
+                    {
+                        if (i > 0)
+                            body.Append(",");
+
+                        // We need to calculate fields that don't match directly
+                        if (fields[i,1].Length == 0)
+                        {
+
+                        }
+                        else
+                        {
+                            string field = fields[i,1].ToString();
+                            if (!row.Table.Columns.Contains(field))
+                            {
+                                throw new Exception("The required field: '" + field + "' is missing from the expense file: " + inputExpenseFileName);
+                            }
+                            
+                            string value = row[field].ToString();
+                            
+                            if (field == "Timestamp")
+                            {
+                                DateTime result = DateTime.ParseExact(value, "M/d/yy H:mm", System.Globalization.CultureInfo.CurrentCulture);
+                                value = result.ToString("MM/dd/yy");
+                            }
+                            
+                            body.Append(value);
+                        }
+                    }
+
+                    rowsExported++;
                     body.AppendLine();
+                }
+
+
+                // Write to the Output File
+                toolStripStatusLabel.Text = "Writing to: " + outputFileName + " ...";
+                statusStrip.Refresh();
 
                 // Now write the files
                 System.IO.File.WriteAllText(outputFileName, body.ToString());
@@ -199,6 +239,47 @@ namespace PFSFinancialEdgeAutomator
             {
                 throw ex;
             }
+        }
+
+        private static DataTable GetDataTabletFromCSVFile(string csv_file_path)
+        {
+            DataTable csvData = new DataTable();
+
+            try
+            {
+
+                using (TextFieldParser csvReader = new TextFieldParser(csv_file_path))
+                {
+                    csvReader.SetDelimiters(new string[] { "\t" });
+                    csvReader.HasFieldsEnclosedInQuotes = true;
+                    string[] colFields = csvReader.ReadFields();
+                    foreach (string column in colFields)
+                    {
+                        DataColumn datecolumn = new DataColumn(column);
+                        datecolumn.AllowDBNull = true;
+                        csvData.Columns.Add(datecolumn);
+                    }
+
+                    while (!csvReader.EndOfData)
+                    {
+                        string[] fieldData = csvReader.ReadFields();
+                        //Making empty value as null
+                        for (int i = 0; i < fieldData.Length; i++)
+                        {
+                            if (fieldData[i] == "")
+                            {
+                                fieldData[i] = null;
+                            }
+                        }
+                        csvData.Rows.Add(fieldData);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return csvData;
         }
     }
 }
