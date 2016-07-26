@@ -244,8 +244,8 @@ namespace PFSFinancialEdgeAutomator
                         String tagsGLCode = dictionaryTagsMappings[tagExpensify];
 
                         // Now split out the GL Code into its parts
-                        // Tags = X(FUND)-XX(DIVISION)-XXX(PROGRAM)-XXXXX(PROJECT ID)
-                        string[] tagArray = tagsGLCode.Split('-');
+                        // Tags = X(FUND):XX(DIVISION):XXX(PROGRAM):XXXXX(PROJECT ID)
+                        string[] tagArray = tagsGLCode.Split(':');
                         if (tagArray.Length != 4)
                         {
                             throw new Exception("The GL Code for the Tag: " + tagExpensify + " doesn't have the required 4 parts of X(FUND)-XX(DIVISION)-XXX(PROGRAM)-XXXXX(PROJECT ID) in file: " + inputExpenseFileName);
