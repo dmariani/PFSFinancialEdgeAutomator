@@ -3742,7 +3742,7 @@
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>178543476</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.peninsulafamilyservice.org/</td><td>0</td><td/><td>1294212975</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>David Mariani</td><td>0</td><td/><td>1294235471</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>\PFS Financial Edge Automation Utility</td><td>0</td><td/><td>1294223183</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>PFS Financial Edge Automation Utility</td><td>0</td><td/><td>1294246096</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>http://www.peninsulafamilyservice.org/</td><td>0</td><td/><td>1294227311</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>650-483-4491</td><td>0</td><td/><td>1294233455</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>178543476</td></row>
@@ -3751,7 +3751,7 @@
 	<table name="ISSwidtagProperty">
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
-		<row><td>UniqueId</td><td>E4DE30FF-F6EF-4B7E-ACC0-59B22B2E19B1</td></row>
+		<row><td>UniqueId</td><td>8CF720C8-11BC-4128-9FB0-F3BCB7C933B1</td></row>
 	</table>
 
 	<table name="ISTargetImage">
