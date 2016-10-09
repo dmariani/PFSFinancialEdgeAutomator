@@ -152,9 +152,9 @@
             this.labelExpenseFileDir.AutoSize = true;
             this.labelExpenseFileDir.Location = new System.Drawing.Point(23, 113);
             this.labelExpenseFileDir.Name = "labelExpenseFileDir";
-            this.labelExpenseFileDir.Size = new System.Drawing.Size(167, 13);
+            this.labelExpenseFileDir.Size = new System.Drawing.Size(162, 13);
             this.labelExpenseFileDir.TabIndex = 7;
-            this.labelExpenseFileDir.Text = "Expsensify Export TXT File Name:";
+            this.labelExpenseFileDir.Text = "Expensify Export TXT File Name:";
             // 
             // textBoxExpenseFileDir
             // 
