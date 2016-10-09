@@ -52,7 +52,7 @@
 	<summary>
 		<codepage>1252</codepage>
 		<title>Installation Database</title>
-		<subject>Setup for Finalsite Export Utility</subject>
+		<subject>##ID_STRING3##</subject>
 		<author>##ID_STRING2##</author>
 		<keywords>Installer,MSI,Database</keywords>
 		<comments>Contact:  Your local administrator</comments>
@@ -2640,7 +2640,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>OLA Parish</td><td>0</td><td/><td>178561908</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Peninsula Family Service</td><td>0</td><td/><td>1294266191</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>178543476</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>178543476</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>178543476</td></row>
@@ -3740,8 +3740,11 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>178543476</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>178543476</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>178543476</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.ola.community</td><td>0</td><td/><td>178545556</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>OLA Parish</td><td>0</td><td/><td>178561908</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.peninsulafamilyservice.org/</td><td>0</td><td/><td>1294212975</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>David Mariani</td><td>0</td><td/><td>1294235471</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>\PFS Financial Edge Automation Utility</td><td>0</td><td/><td>1294223183</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>http://www.peninsulafamilyservice.org/</td><td>0</td><td/><td>1294227311</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>650-483-4491</td><td>0</td><td/><td>1294233455</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>178543476</td></row>
 	</table>
 
@@ -3988,7 +3991,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{B3FAC303-B496-429D-9B97-303F48D74713}</td></row>
 		<row><td>ISUSSignature</td><td>{68554DE0-15B9-4F75-B0FA-6DD3231BBC65}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewShortcuts,viewAppFiles,viewObjects,viewDependencies,viewISToday,viewFeatureFiles</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewShortcuts,viewAppFiles,viewObjects,viewDependencies,viewISToday,viewFeatureFiles,viewUI,viewTextMessages,viewProject</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4293,6 +4296,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L0">Value</col>
 		<col def="S255">ISComments</col>
 		<row><td>ALLUSERS</td><td>1</td><td/></row>
+		<row><td>ARPHELPLINK</td><td>##ID_STRING4##</td><td/></row>
+		<row><td>ARPHELPTELEPHONE</td><td>##ID_STRING5##</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
@@ -4361,7 +4366,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>ProductCode</td><td>{854DD249-B652-467B-99E3-410803A5FDFD}</td><td/></row>
-		<row><td>ProductName</td><td>Setup for Finalsite Export Utility</td><td/></row>
+		<row><td>ProductName</td><td>PFS Financial Edge Automation Utility</td><td/></row>
 		<row><td>ProductVersion</td><td>1.00.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
