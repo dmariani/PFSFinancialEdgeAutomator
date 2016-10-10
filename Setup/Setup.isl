@@ -2606,6 +2606,8 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
+		<row><td>_08071143_B373_4844_B294_D6DFBF8C83E1_</td><td>Microsoft Visual C++ 2015 Redistributable Package (x86).prq</td><td/><td/><td/></row>
+		<row><td>_E571B49F_9352_441A_B5FA_9B59EC4F1E22_</td><td>Microsoft .NET Framework 4.6 Full.prq</td><td/><td/><td/></row>
 		<row><td>_F94DF881_88B1_4BB1_8967_1D3A650783C5_</td><td>Microsoft Visual C++ 2015 Redistributable Package (x64).prq</td><td/><td/><td/></row>
 	</table>
 

@@ -162,7 +162,7 @@ namespace PFSFinancialEdgeAutomator
                 toolStripStatusLabel.Text = "Reading: " + inputExpenseFileName + " ...";
                 statusStrip.Refresh();
 
-                DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName, "\t");
+                DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName, ",");
                 Console.WriteLine("Rows count:" + ExpenseData.Rows.Count);
 
                 toolStripStatusLabel.Text = "Writing data to files...";
@@ -206,7 +206,7 @@ namespace PFSFinancialEdgeAutomator
                             throw new Exception("Can't find the required field 'Amount' in the Expensify Export File named: " + inputExpenseFileName);
                         }
 
-                        String Amt = row["Amount"].ToString();
+                        String Amt = row["Amount"].ToString().Replace("(", "-").Replace(")", "").Trim();
                         double dblAmt = Convert.ToDouble(Amt);
 
                         // Parse Category
@@ -221,7 +221,7 @@ namespace PFSFinancialEdgeAutomator
                         // Now lookup Expensify Cat in our Map
                         if (!dictionaryCatMappings.ContainsKey(catExpensify))
                         {
-                            throw new Exception("Can't find GL Code mapping for Category: " + catExpensify + " in file: " + inputExpenseFileName);
+                            throw new Exception("Can't find mapping code for Category: " + catExpensify + " in file: " + inputCatMappingFileName);
                         }
 
                         String catGLCode = dictionaryCatMappings[catExpensify];
@@ -238,7 +238,7 @@ namespace PFSFinancialEdgeAutomator
                         // Now lookup Expensify Tab in our Map
                         if (!dictionaryTagsMappings.ContainsKey(tagExpensify))
                         {
-                            throw new Exception("Can't find GL Code mapping for Tag: " + tagExpensify + " in file: " + inputExpenseFileName);
+                            throw new Exception("Can't find mapping code for Tag: " + tagExpensify + " in file: " + inputTagsMappingFileName);
                         }
 
                         String tagsGLCode = dictionaryTagsMappings[tagExpensify];
@@ -306,7 +306,7 @@ namespace PFSFinancialEdgeAutomator
                             
                             if (fieldIn == "Timestamp")
                             {
-                                DateTime result = DateTime.ParseExact(value, "M/d/yy H:mm", System.Globalization.CultureInfo.CurrentCulture);
+                                DateTime result = DateTime.ParseExact(value, "yyyy-MM-dd H:mm:ss", System.Globalization.CultureInfo.CurrentCulture);
                                 value = result.ToString("MM/dd/yy");
                             }
                             else if (fieldIn == "Amount")
