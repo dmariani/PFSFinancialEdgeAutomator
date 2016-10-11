@@ -201,67 +201,66 @@ namespace PFSFinancialEdgeAutomator
                 foreach (DataRow row in ExpenseData.Rows)
                 {
                     if (row.RowState == DataRowState.Deleted)
-                        continue; 
-                               
+                        continue;
+                    // Parse Amount
+                    if (!row.Table.Columns.Contains("Amount"))
+                    {
+                        throw new Exception("Can't find the required field 'Amount' in the Expensify Export File named: " + inputExpenseFileName);
+                    }
+
+                    var Amt1 = row["Amount"];
+                    String Amt = row["Amount"].ToString().Replace("(", "-").Replace(")", "").Trim();
+                    double dblAmt = Convert.ToDouble(Amt);
+
+                    // Parse Category
+                    //
+                    if (!row.Table.Columns.Contains("Category"))
+                    {
+                        throw new Exception("Can't find the required field 'Category' in the Expensify Export File named: " + inputExpenseFileName);
+                    }
+
+                    String catExpensify = row["Category"].ToString().ToUpper().Trim();
+
+                    // Now lookup Expensify Cat in our Map
+                    if (!dictionaryCatMappings.ContainsKey(catExpensify))
+                    {
+                        throw new Exception("Can't find mapping code for Category: " + catExpensify + " in file: " + inputCatMappingFileName);
+                    }
+
+                    String catGLCode = dictionaryCatMappings[catExpensify];
+
+                    // Parse Tag
+                    //
+                    if (!row.Table.Columns.Contains("Tag"))
+                    {
+                        throw new Exception("Can't find the required field 'Tag' in the Expensify Export File named: " + inputExpenseFileName);
+                    }
+
+                    String tagExpensify = row["Tag"].ToString().ToUpper().Trim();
+
+                    // Now lookup Expensify Tab in our Map
+                    if (!dictionaryTagsMappings.ContainsKey(tagExpensify))
+                    {
+                        throw new Exception("Can't find mapping code for Tag: " + tagExpensify + " in file: " + inputTagsMappingFileName);
+                    }
+
+                    String tagsGLCode = dictionaryTagsMappings[tagExpensify];
+
+                    // Now split out the GL Code into its parts
+                    // Tags = X(FUND):XX(DIVISION):XXX(PROGRAM):XXXXX(PROJECT ID)
+                    string[] tagArray = tagsGLCode.Split(':');
+                    if (tagArray.Length != 4)
+                    {
+                        throw new Exception("The GL Code for the Tag: " + tagExpensify + " doesn't have the required 4 parts of X(FUND)-XX(DIVISION)-XXX(PROGRAM)-XXXXX(PROJECT ID) in file: " + inputExpenseFileName);
+                    }
+
+                    String Fund = tagArray[0];
+                    String Division = tagArray[1];
+                    String Program = tagArray[2];
+                    String Project = tagArray[3];
+
                     for (int i = 0; i < fields.GetLength(0); i++)
                     {
-                        // Parse Amount
-                        if (!row.Table.Columns.Contains("Amount"))
-                        {
-                            throw new Exception("Can't find the required field 'Amount' in the Expensify Export File named: " + inputExpenseFileName);
-                        }
-
-                        var Amt1 = row["Amount"];
-                        String Amt = row["Amount"].ToString().Replace("(", "-").Replace(")", "").Trim();
-                        double dblAmt = Convert.ToDouble(Amt);
-
-                        // Parse Category
-                        //
-                        if (!row.Table.Columns.Contains("Category"))
-                        {
-                            throw new Exception("Can't find the required field 'Category' in the Expensify Export File named: " + inputExpenseFileName);
-                        }
-
-                        String catExpensify = row["Category"].ToString().ToUpper().Trim();
-
-                        // Now lookup Expensify Cat in our Map
-                        if (!dictionaryCatMappings.ContainsKey(catExpensify))
-                        {
-                            throw new Exception("Can't find mapping code for Category: " + catExpensify + " in file: " + inputCatMappingFileName);
-                        }
-
-                        String catGLCode = dictionaryCatMappings[catExpensify];
-
-                        // Parse Tag
-                        //
-                        if (!row.Table.Columns.Contains("Tag"))
-                        {
-                            throw new Exception("Can't find the required field 'Tag' in the Expensify Export File named: " + inputExpenseFileName);
-                        }
-
-                        String tagExpensify = row["Tag"].ToString().ToUpper().Trim();
-
-                        // Now lookup Expensify Tab in our Map
-                        if (!dictionaryTagsMappings.ContainsKey(tagExpensify))
-                        {
-                            throw new Exception("Can't find mapping code for Tag: " + tagExpensify + " in file: " + inputTagsMappingFileName);
-                        }
-
-                        String tagsGLCode = dictionaryTagsMappings[tagExpensify];
-
-                        // Now split out the GL Code into its parts
-                        // Tags = X(FUND):XX(DIVISION):XXX(PROGRAM):XXXXX(PROJECT ID)
-                        string[] tagArray = tagsGLCode.Split(':');
-                        if (tagArray.Length != 4)
-                        {
-                            throw new Exception("The GL Code for the Tag: " + tagExpensify + " doesn't have the required 4 parts of X(FUND)-XX(DIVISION)-XXX(PROGRAM)-XXXXX(PROJECT ID) in file: " + inputExpenseFileName);
-                        }
-
-                        String Fund = tagArray[0];
-                        String Division = tagArray[1];
-                        String Program = tagArray[2];
-                        String Project = tagArray[3];
-
                         // Add delimiter
                         if (i > 0)
                             body.Append(",");
