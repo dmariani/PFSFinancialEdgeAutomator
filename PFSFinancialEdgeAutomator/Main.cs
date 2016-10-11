@@ -16,6 +16,7 @@ using System.Xml;
 using System.Xml.XPath;
 using Microsoft.VisualBasic.FileIO;
 using System.Globalization;
+using System.Data.OleDb;
 
 namespace PFSFinancialEdgeAutomator
 {
@@ -128,9 +129,9 @@ namespace PFSFinancialEdgeAutomator
 
         private void chooseExpenseFileDir_Click(object sender, EventArgs e)
         {
-            if (openFileDialogTXT.ShowDialog() == DialogResult.OK)
+            if (openFileDialogExcel.ShowDialog() == DialogResult.OK)
             {
-                textBoxExpenseFileDir.Text = openFileDialogTXT.FileName;
+                textBoxExpenseFileDir.Text = openFileDialogExcel.FileName;
             }
         }
 
@@ -162,7 +163,8 @@ namespace PFSFinancialEdgeAutomator
                 toolStripStatusLabel.Text = "Reading: " + inputExpenseFileName + " ...";
                 statusStrip.Refresh();
 
-                DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName, ",");
+                //                DataTable ExpenseData = GetDataTabletFromCSVFile(inputExpenseFileName, ",");
+                DataTable ExpenseData = GetDataTabletFromExcelFile("Expensify Report Export", inputExpenseFileName);
                 Console.WriteLine("Rows count:" + ExpenseData.Rows.Count);
 
                 toolStripStatusLabel.Text = "Writing data to files...";
@@ -197,7 +199,10 @@ namespace PFSFinancialEdgeAutomator
                 // Loop through expense file
                 //
                 foreach (DataRow row in ExpenseData.Rows)
-                {                    
+                {
+                    if (row.RowState == DataRowState.Deleted)
+                        continue; 
+                               
                     for (int i = 0; i < fields.GetLength(0); i++)
                     {
                         // Parse Amount
@@ -206,6 +211,7 @@ namespace PFSFinancialEdgeAutomator
                             throw new Exception("Can't find the required field 'Amount' in the Expensify Export File named: " + inputExpenseFileName);
                         }
 
+                        var Amt1 = row["Amount"];
                         String Amt = row["Amount"].ToString().Replace("(", "-").Replace(")", "").Trim();
                         double dblAmt = Convert.ToDouble(Amt);
 
@@ -366,6 +372,49 @@ namespace PFSFinancialEdgeAutomator
             }  
 
             return dictionaryMappings;
+        }
+        private DataTable GetDataTabletFromExcelFile(string sheetName, string path)
+        {
+            using (OleDbConnection conn = new OleDbConnection())
+            {
+                DataTable dt = new DataTable();
+                string Import_FileName = path;
+                string fileExtension = Path.GetExtension(Import_FileName);
+                conn.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Import_FileName + ";" + "Extended Properties='Excel 12.0 Xml;HDR=NO;IMEX=1;'";
+
+                using (OleDbCommand comm = new OleDbCommand())
+                {
+                    comm.CommandText = "Select * from [" + sheetName + "$]";
+
+                    comm.Connection = conn;
+
+                    using (OleDbDataAdapter da = new OleDbDataAdapter())
+                    {
+                        da.SelectCommand = comm;
+                        da.Fill(dt);
+
+                        // This is a hack to fix the fact that the Driver will assume that a data types
+                        // We will ignore the header and then add it back
+                        // Remove the first row (header row)
+                        DataRow dr = dt.Rows[0];
+                        dr.Delete();
+                        dt.Columns[0].ColumnName = "Timestamp";
+                        dt.Columns[1].ColumnName = "Merchant";
+                        dt.Columns[2].ColumnName = "Amount";
+                        dt.Columns[3].ColumnName = "MCC";
+                        dt.Columns[4].ColumnName = "Category";
+                        dt.Columns[5].ColumnName = "GL1-Output";
+                        dt.Columns[6].ColumnName = "Tag";
+                        dt.Columns[7].ColumnName = "GL2-Output";
+                        dt.Columns[8].ColumnName = "Comment";
+                        dt.Columns[9].ColumnName = "Reimbursable";
+                        dt.Columns[10].ColumnName = "Original Currency";
+                        dt.Columns[11].ColumnName = "Original Amount";
+                        dt.Columns[12].ColumnName = "Receipt";
+                        return dt;
+                    }
+                }
+            }
         }
 
         private static DataTable GetDataTabletFromCSVFile(string csv_file_path, string delimiter)

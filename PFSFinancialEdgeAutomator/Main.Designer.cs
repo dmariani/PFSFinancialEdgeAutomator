@@ -43,7 +43,7 @@
             this.textBoxExpenseFileDir = new System.Windows.Forms.TextBox();
             this.chooseExpenseFileDir = new System.Windows.Forms.Button();
             this.openFileDialogCSV = new System.Windows.Forms.OpenFileDialog();
-            this.openFileDialogTXT = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
             this.labelDirectoryTagsMappingDir = new System.Windows.Forms.Label();
             this.textBoxTagsMappingDir = new System.Windows.Forms.TextBox();
             this.chooseTagsMappingDir = new System.Windows.Forms.Button();
@@ -152,9 +152,9 @@
             this.labelExpenseFileDir.AutoSize = true;
             this.labelExpenseFileDir.Location = new System.Drawing.Point(23, 113);
             this.labelExpenseFileDir.Name = "labelExpenseFileDir";
-            this.labelExpenseFileDir.Size = new System.Drawing.Size(162, 13);
+            this.labelExpenseFileDir.Size = new System.Drawing.Size(167, 13);
             this.labelExpenseFileDir.TabIndex = 7;
-            this.labelExpenseFileDir.Text = "Expensify Export TXT File Name:";
+            this.labelExpenseFileDir.Text = "Expensify Export Excel File Name:";
             // 
             // textBoxExpenseFileDir
             // 
@@ -181,12 +181,13 @@
             this.openFileDialogCSV.ReadOnlyChecked = true;
             this.openFileDialogCSV.Title = "Choose the Mapping CSV File";
             // 
-            // openFileDialogTXT
+            // openFileDialogExcel
             // 
-            this.openFileDialogTXT.DefaultExt = "csv";
-            this.openFileDialogTXT.Filter = "Text Files (.txt)|*.txt|CSV Files (.csv)|*.csv|All Files (*.*)|*.*\"";
-            this.openFileDialogTXT.ReadOnlyChecked = true;
-            this.openFileDialogTXT.Title = "Choose the Expense CSV File";
+            this.openFileDialogExcel.DefaultExt = "csv";
+            this.openFileDialogExcel.Filter = "Excel xls Files (.xls)|*.xls|Excel xlsx Files (.xlsx)|*.xlsx|All Files (*.*)|*.*\"" +
+    "";
+            this.openFileDialogExcel.ReadOnlyChecked = true;
+            this.openFileDialogExcel.Title = "Choose the Expense Excel File";
             // 
             // labelDirectoryTagsMappingDir
             // 
@@ -275,7 +276,7 @@
         private System.Windows.Forms.TextBox textBoxExpenseFileDir;
         private System.Windows.Forms.Button chooseExpenseFileDir;
         private System.Windows.Forms.OpenFileDialog openFileDialogCSV;
-        private System.Windows.Forms.OpenFileDialog openFileDialogTXT;
+        private System.Windows.Forms.OpenFileDialog openFileDialogExcel;
         private System.Windows.Forms.Label labelDirectoryTagsMappingDir;
         private System.Windows.Forms.TextBox textBoxTagsMappingDir;
         private System.Windows.Forms.Button chooseTagsMappingDir;
