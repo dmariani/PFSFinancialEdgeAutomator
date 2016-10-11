@@ -14,5 +14,8 @@
     <Setting Name="inputTagsMappingDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="postingDate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">09/30/16</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

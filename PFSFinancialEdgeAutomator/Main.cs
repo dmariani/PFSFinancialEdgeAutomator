@@ -42,6 +42,7 @@ namespace PFSFinancialEdgeAutomator
             textBoxTagsMappingDir.Text = Properties.Settings.Default["inputTagsMappingDir"].ToString();
             textBoxExpenseFileDir.Text = Properties.Settings.Default["inputExpenseDir"].ToString();
             textBoxDir.Text = Properties.Settings.Default["outputDir"].ToString();
+            dateTimePickerPostingDate.Text = Properties.Settings.Default["postingDate"].ToString();
         }
 
         private void SaveOptions()
@@ -50,6 +51,7 @@ namespace PFSFinancialEdgeAutomator
             Properties.Settings.Default["inputTagsMappingDir"] = textBoxTagsMappingDir.Text;
             Properties.Settings.Default["inputExpenseDir"] = textBoxExpenseFileDir.Text;
             Properties.Settings.Default["outputDir"] = textBoxDir.Text;
+            Properties.Settings.Default["postingDate"] = dateTimePickerPostingDate.Text;
             Properties.Settings.Default.Save(); // Saves settings in application configuration file
         }
 
@@ -196,6 +198,8 @@ namespace PFSFinancialEdgeAutomator
                 header.AppendLine();
                 body.Append(header);
 
+                double totalCredit = 0.0;
+
                 // Loop through expense file
                 //
                 foreach (DataRow row in ExpenseData.Rows)
@@ -268,6 +272,7 @@ namespace PFSFinancialEdgeAutomator
                         // We need to calculate fields that don't match directly
                         string fieldOut = fields[i,0].ToString();
                         string fieldIn = fields[i,1].ToString();
+
                         if (fieldIn.Length == 0)
                         {
                             if (fieldOut == "AccountNumber")
@@ -302,12 +307,12 @@ namespace PFSFinancialEdgeAutomator
                         }
                         else
                         {
+                            string value = row[fieldIn].ToString();
+
                             if (!row.Table.Columns.Contains(fieldIn))
                             {
                                 throw new Exception("The required field: '" + fieldIn + "' is missing from the expense file: " + inputExpenseFileName);
                             }
-                            
-                            string value = row[fieldIn].ToString();
                             
                             if (fieldIn == "Timestamp")
                             {
@@ -317,9 +322,14 @@ namespace PFSFinancialEdgeAutomator
                             else if (fieldIn == "Amount")
                             {
                                 // Make Amount the absolute value
+                                totalCredit += dblAmt;
                                 value = Math.Abs(dblAmt).ToString();
                             }
-                            
+                            else if (fieldIn == "Comment")
+                            {
+                                value = value.Replace(",", " ");
+                            }
+
                             body.Append(value);
                         }
                     }
@@ -328,6 +338,13 @@ namespace PFSFinancialEdgeAutomator
                     body.AppendLine();
                 }
 
+                DateTime dt = DateTime.Parse(dateTimePickerPostingDate.Text);
+                String strDate = dt.ToString("MM/dd/yy");
+
+                // Now add the summary row
+                body.AppendFormat("{0},{1},{2},{3},{4}", "1-00-000-20007", strDate, "C",totalCredit,"Journal Entry,American Express,,R");
+                rowsExported++;
+                body.AppendLine();
 
                 // Write to the Output File
                 toolStripStatusLabel.Text = "Writing to: " + outputFileName + " ...";

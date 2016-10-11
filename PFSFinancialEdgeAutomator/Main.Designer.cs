@@ -48,25 +48,27 @@
             this.textBoxTagsMappingDir = new System.Windows.Forms.TextBox();
             this.chooseTagsMappingDir = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePickerPostingDate = new System.Windows.Forms.DateTimePicker();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // go
             // 
-            this.go.Location = new System.Drawing.Point(196, 203);
+            this.go.Location = new System.Drawing.Point(196, 264);
             this.go.Name = "go";
             this.go.Size = new System.Drawing.Size(75, 23);
-            this.go.TabIndex = 13;
+            this.go.TabIndex = 14;
             this.go.Text = "&Go";
             this.go.UseVisualStyleBackColor = true;
             this.go.Click += new System.EventHandler(this.go_Click);
             // 
             // close
             // 
-            this.close.Location = new System.Drawing.Point(327, 203);
+            this.close.Location = new System.Drawing.Point(327, 264);
             this.close.Name = "close";
             this.close.Size = new System.Drawing.Size(75, 23);
-            this.close.TabIndex = 14;
+            this.close.TabIndex = 15;
             this.close.Text = "&Close";
             this.close.UseVisualStyleBackColor = true;
             this.close.Click += new System.EventHandler(this.close_Click);
@@ -74,7 +76,7 @@
             // labelDirectoryOutputDir
             // 
             this.labelDirectoryOutputDir.AutoSize = true;
-            this.labelDirectoryOutputDir.Location = new System.Drawing.Point(23, 166);
+            this.labelDirectoryOutputDir.Location = new System.Drawing.Point(23, 170);
             this.labelDirectoryOutputDir.Name = "labelDirectoryOutputDir";
             this.labelDirectoryOutputDir.Size = new System.Drawing.Size(132, 13);
             this.labelDirectoryOutputDir.TabIndex = 10;
@@ -82,7 +84,7 @@
             // 
             // textBoxDir
             // 
-            this.textBoxDir.Location = new System.Drawing.Point(219, 163);
+            this.textBoxDir.Location = new System.Drawing.Point(219, 167);
             this.textBoxDir.Name = "textBoxDir";
             this.textBoxDir.Size = new System.Drawing.Size(292, 20);
             this.textBoxDir.TabIndex = 11;
@@ -90,7 +92,7 @@
             // 
             // chooseOutputDir
             // 
-            this.chooseOutputDir.Location = new System.Drawing.Point(517, 161);
+            this.chooseOutputDir.Location = new System.Drawing.Point(517, 165);
             this.chooseOutputDir.Name = "chooseOutputDir";
             this.chooseOutputDir.Size = new System.Drawing.Size(40, 23);
             this.chooseOutputDir.TabIndex = 12;
@@ -106,7 +108,7 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel});
-            this.statusStrip.Location = new System.Drawing.Point(0, 237);
+            this.statusStrip.Location = new System.Drawing.Point(0, 290);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(599, 22);
             this.statusStrip.SizingGrip = false;
@@ -123,7 +125,7 @@
             // labelDirectoryCatMappingDir
             // 
             this.labelDirectoryCatMappingDir.AutoSize = true;
-            this.labelDirectoryCatMappingDir.Location = new System.Drawing.Point(23, 33);
+            this.labelDirectoryCatMappingDir.Location = new System.Drawing.Point(23, 37);
             this.labelDirectoryCatMappingDir.Name = "labelDirectoryCatMappingDir";
             this.labelDirectoryCatMappingDir.Size = new System.Drawing.Size(178, 13);
             this.labelDirectoryCatMappingDir.TabIndex = 1;
@@ -131,7 +133,7 @@
             // 
             // textBoxCatMappingDir
             // 
-            this.textBoxCatMappingDir.Location = new System.Drawing.Point(219, 31);
+            this.textBoxCatMappingDir.Location = new System.Drawing.Point(219, 35);
             this.textBoxCatMappingDir.Name = "textBoxCatMappingDir";
             this.textBoxCatMappingDir.Size = new System.Drawing.Size(292, 20);
             this.textBoxCatMappingDir.TabIndex = 2;
@@ -139,7 +141,7 @@
             // 
             // chooseCatMappingDir
             // 
-            this.chooseCatMappingDir.Location = new System.Drawing.Point(517, 30);
+            this.chooseCatMappingDir.Location = new System.Drawing.Point(517, 34);
             this.chooseCatMappingDir.Name = "chooseCatMappingDir";
             this.chooseCatMappingDir.Size = new System.Drawing.Size(40, 23);
             this.chooseCatMappingDir.TabIndex = 3;
@@ -150,7 +152,7 @@
             // labelExpenseFileDir
             // 
             this.labelExpenseFileDir.AutoSize = true;
-            this.labelExpenseFileDir.Location = new System.Drawing.Point(23, 113);
+            this.labelExpenseFileDir.Location = new System.Drawing.Point(23, 117);
             this.labelExpenseFileDir.Name = "labelExpenseFileDir";
             this.labelExpenseFileDir.Size = new System.Drawing.Size(167, 13);
             this.labelExpenseFileDir.TabIndex = 7;
@@ -158,7 +160,7 @@
             // 
             // textBoxExpenseFileDir
             // 
-            this.textBoxExpenseFileDir.Location = new System.Drawing.Point(219, 112);
+            this.textBoxExpenseFileDir.Location = new System.Drawing.Point(219, 116);
             this.textBoxExpenseFileDir.Name = "textBoxExpenseFileDir";
             this.textBoxExpenseFileDir.Size = new System.Drawing.Size(292, 20);
             this.textBoxExpenseFileDir.TabIndex = 8;
@@ -166,7 +168,7 @@
             // 
             // chooseExpenseFileDir
             // 
-            this.chooseExpenseFileDir.Location = new System.Drawing.Point(517, 110);
+            this.chooseExpenseFileDir.Location = new System.Drawing.Point(517, 114);
             this.chooseExpenseFileDir.Name = "chooseExpenseFileDir";
             this.chooseExpenseFileDir.Size = new System.Drawing.Size(40, 23);
             this.chooseExpenseFileDir.TabIndex = 9;
@@ -192,7 +194,7 @@
             // labelDirectoryTagsMappingDir
             // 
             this.labelDirectoryTagsMappingDir.AutoSize = true;
-            this.labelDirectoryTagsMappingDir.Location = new System.Drawing.Point(23, 73);
+            this.labelDirectoryTagsMappingDir.Location = new System.Drawing.Point(23, 77);
             this.labelDirectoryTagsMappingDir.Name = "labelDirectoryTagsMappingDir";
             this.labelDirectoryTagsMappingDir.Size = new System.Drawing.Size(152, 13);
             this.labelDirectoryTagsMappingDir.TabIndex = 4;
@@ -200,7 +202,7 @@
             // 
             // textBoxTagsMappingDir
             // 
-            this.textBoxTagsMappingDir.Location = new System.Drawing.Point(219, 70);
+            this.textBoxTagsMappingDir.Location = new System.Drawing.Point(219, 74);
             this.textBoxTagsMappingDir.Name = "textBoxTagsMappingDir";
             this.textBoxTagsMappingDir.Size = new System.Drawing.Size(292, 20);
             this.textBoxTagsMappingDir.TabIndex = 5;
@@ -208,7 +210,7 @@
             // 
             // chooseTagsMappingDir
             // 
-            this.chooseTagsMappingDir.Location = new System.Drawing.Point(517, 69);
+            this.chooseTagsMappingDir.Location = new System.Drawing.Point(517, 73);
             this.chooseTagsMappingDir.Name = "chooseTagsMappingDir";
             this.chooseTagsMappingDir.Size = new System.Drawing.Size(40, 23);
             this.chooseTagsMappingDir.TabIndex = 6;
@@ -218,18 +220,37 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(13, 12);
+            this.groupBox1.Location = new System.Drawing.Point(13, 16);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(563, 135);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Input FIles";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(23, 221);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Posting Date:";
+            // 
+            // dateTimePickerPostingDate
+            // 
+            this.dateTimePickerPostingDate.CustomFormat = "MM/dd/yy";
+            this.dateTimePickerPostingDate.Location = new System.Drawing.Point(219, 213);
+            this.dateTimePickerPostingDate.Name = "dateTimePickerPostingDate";
+            this.dateTimePickerPostingDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerPostingDate.TabIndex = 13;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 259);
+            this.ClientSize = new System.Drawing.Size(599, 312);
+            this.Controls.Add(this.dateTimePickerPostingDate);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chooseTagsMappingDir);
             this.Controls.Add(this.textBoxTagsMappingDir);
             this.Controls.Add(this.labelDirectoryTagsMappingDir);
@@ -281,6 +302,8 @@
         private System.Windows.Forms.TextBox textBoxTagsMappingDir;
         private System.Windows.Forms.Button chooseTagsMappingDir;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerPostingDate;
     }
 }
 
