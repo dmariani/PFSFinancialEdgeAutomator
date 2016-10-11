@@ -239,9 +239,10 @@
             // dateTimePickerPostingDate
             // 
             this.dateTimePickerPostingDate.CustomFormat = "MM/dd/yy";
+            this.dateTimePickerPostingDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePickerPostingDate.Location = new System.Drawing.Point(219, 213);
             this.dateTimePickerPostingDate.Name = "dateTimePickerPostingDate";
-            this.dateTimePickerPostingDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerPostingDate.Size = new System.Drawing.Size(97, 20);
             this.dateTimePickerPostingDate.TabIndex = 13;
             // 
             // Main
