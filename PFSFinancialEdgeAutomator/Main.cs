@@ -396,21 +396,20 @@ namespace PFSFinancialEdgeAutomator
                         // This is a hack to fix the fact that the Driver will assume that a data types
                         // We will ignore the header and then add it back
                         // Remove the first row (header row)
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            int colNum = 0;
+                            for (int i=0; i < row.ItemArray.Length; i++)
+                            {
+                                String ColumnName = row.ItemArray[i].ToString();
+                                dt.Columns[colNum].ColumnName = ColumnName;
+                                colNum++;
+                            }
+                            break;
+                        }
+
                         DataRow dr = dt.Rows[0];
                         dr.Delete();
-                        dt.Columns[0].ColumnName = "Timestamp";
-                        dt.Columns[1].ColumnName = "Merchant";
-                        dt.Columns[2].ColumnName = "Amount";
-                        dt.Columns[3].ColumnName = "MCC";
-                        dt.Columns[4].ColumnName = "Category";
-                        dt.Columns[5].ColumnName = "GL1-Output";
-                        dt.Columns[6].ColumnName = "Tag";
-                        dt.Columns[7].ColumnName = "GL2-Output";
-                        dt.Columns[8].ColumnName = "Comment";
-                        dt.Columns[9].ColumnName = "Reimbursable";
-                        dt.Columns[10].ColumnName = "Original Currency";
-                        dt.Columns[11].ColumnName = "Original Amount";
-                        dt.Columns[12].ColumnName = "Receipt";
                         return dt;
                     }
                 }
