@@ -327,7 +327,7 @@ namespace PFSFinancialEdgeAutomator
                             }
                             else if (fieldIn == "Comment")
                             {
-                                value = value.Replace(",", " ");
+                                value = "\"" + value + "\"";
                             }
 
                             body.Append(value);

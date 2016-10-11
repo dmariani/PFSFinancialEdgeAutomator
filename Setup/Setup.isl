@@ -339,8 +339,10 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
+		<row><td>AccessDatabaseEngine.exe</td><td>{7EDECD82-4384-4E96-8E51-C0BC612936F0}</td><td>DRIVERS</td><td>2</td><td/><td>accessdatabaseengine.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{61CAC9AF-8E08-48E2-870C-A9C6F6FAEEED}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{3347F69E-4FDE-4221-97A8-9552C2AD736A}</td><td>PFS_UTILITIES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{91B4AE91-7CBA-499B-92EE-D0BB582332DD}</td><td>DRIVERS</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>PFSFinancialEdgeAutomator.Primary_output</td><td>{7593C558-786C-409B-B95D-5AF2CDC05477}</td><td>INSTALLDIR</td><td>2</td><td/><td>finalsiteconstituentsexporte</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1050,7 +1052,11 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>DRIVERS</td><td>AccessDatabaseEngine.exe</td></row>
+		<row><td>DRIVERS</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>INSTALLDIR</td><td>AccessDatabaseEngine.exe</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>PFS_UTILITIES</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
@@ -1138,6 +1144,7 @@
 		<row><td>CommonFiles64Folder</td><td>TARGETDIR</td><td>.:Common64</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
 		<row><td>DATABASEDIR</td><td>ISYourDataBaseDir</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>DRIVERS</td><td>INSTALLDIR</td><td>Drivers</td><td/><td>0</td><td/></row>
 		<row><td>DesktopFolder</td><td>TARGETDIR</td><td>.:Desktop</td><td/><td>3</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
@@ -1864,8 +1871,10 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>AlwaysInstall</td><td>AccessDatabaseEngine.exe</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>PFSFinancialEdgeAutomator.Primary_output</td></row>
 	</table>
 
@@ -1881,6 +1890,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>accessdatabaseengine.exe</td><td>AccessDatabaseEngine.exe</td><td>ACCESS~1.EXE|AccessDatabaseEngine.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\dmariani\Documents\PFSFinancialEdgeAutomator\PFSFinancialEdgeAutomator\Drivers\AccessDatabaseEngine.exe</td><td>1</td><td/></row>
 		<row><td>finalsiteconstituentsexporte</td><td>PFSFinancialEdgeAutomator.Primary_output</td><td>PFSFinancialEdgeAutomator.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PFSFinancialEdgeAutomator&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2025,8 +2035,10 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
+		<row><td>AccessDatabaseEngine.exe</td><td/><td/><td>_6B9B50EE_109A_4986_B43E_BC33BA5A2EDA_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_951D55B2_1100_4B2A_9C7C_9971FD00D720_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_4979C15E_7657_41BF_ACD6_94A3C340DF9E_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_2338A8AD_C8C3_4EA7_A1E4_EB70D52E7A4F_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>PFSFinancialEdgeAutomator.Primary_output</td><td/><td/><td>_A6F4845C_67B5_454E_A835_6CA57121F586_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2608,7 +2620,6 @@
 		<col def="S255">ISReleaseFlags</col>
 		<row><td>_08071143_B373_4844_B294_D6DFBF8C83E1_</td><td>Microsoft Visual C++ 2015 Redistributable Package (x86).prq</td><td/><td/><td/></row>
 		<row><td>_E571B49F_9352_441A_B5FA_9B59EC4F1E22_</td><td>Microsoft .NET Framework 4.6 Full.prq</td><td/><td/><td/></row>
-		<row><td>_F94DF881_88B1_4BB1_8967_1D3A650783C5_</td><td>Microsoft Visual C++ 2015 Redistributable Package (x64).prq</td><td/><td/><td/></row>
 	</table>
 
 	<table name="ISSetupType">
